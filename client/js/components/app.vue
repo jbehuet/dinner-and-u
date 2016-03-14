@@ -1,6 +1,6 @@
 <template>
-    <nav class="grey lighten-5">
-        <div class="nav-wrapper">
+    <nav class="grey lighten-5" role="navigation">
+        <div class="nav-wrapper container">
             <a href="#" class="brand-logo">Dinner & U</a>   
         </div>
     </nav>
