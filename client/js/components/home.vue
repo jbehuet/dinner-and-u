@@ -1,5 +1,5 @@
 <template>
-<div class="card animated fadeIn">
+<div class="card grey lighten-5 animated fadeIn">
    <div class="card-content">
         <div class="row">
             <div class="col s2 offset-s2 arrow">
