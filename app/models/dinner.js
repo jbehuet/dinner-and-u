@@ -5,6 +5,7 @@ var dinnerSchema = new mongoose.Schema({
     name: String,
     picture: String,
     description: String,
+    note: Number,
     reviews: [String]
 });
 

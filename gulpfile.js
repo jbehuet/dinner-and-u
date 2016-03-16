@@ -39,7 +39,7 @@ gulp.task('frontend-js-app', function () {
     var bundler = watchify(b);
     bundler.on('update', function () {
         gutil.log(CC.cyan.bold("*** file change triggers app bundling"));
-        rebundle().pipe(livereload());
+        rebundle();//.pipe(livereload());
     });
 
     bundler.on('time', function (time) {
