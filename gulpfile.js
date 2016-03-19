@@ -33,13 +33,15 @@ gulp.task('frontend-js-app', function () {
         cache: {}, // required by watchify
         packageCache: {}, // ditto
         fullPaths: true // ditto
-    }).transform(vueify).transform(babelify, {presets: ["es2015"]});
-    
+    }).transform(vueify).transform(babelify, {
+        presets: ["es2015"]
+    });
+
     // Well, we can build our fantastically complete watchify pipeline now
     var bundler = watchify(b);
     bundler.on('update', function () {
         gutil.log(CC.cyan.bold("*** file change triggers app bundling"));
-        rebundle();//.pipe(livereload());
+        rebundle(); //.pipe(livereload());
     });
 
     bundler.on('time', function (time) {
@@ -70,23 +72,23 @@ gulp.task('frontend-js-app', function () {
 });
 
 
-gulp.task('minify', ['frontend-js-app'], function(){
+gulp.task('minify', ['frontend-js-app'], function () {
     return gulp.src(PATHS['dist'] + '/js/app.bundle.js')
-    .pipe(uglify())
-    .pipe(rename({
-      extname: '.min.js'
-    }))
-    .pipe(gulp.dest(PATHS['dist']+'/js/'));
+        .pipe(uglify())
+        .pipe(rename({
+            extname: '.min.js'
+        }))
+        .pipe(gulp.dest(PATHS['dist'] + '/js/'));
 })
 
-gulp.task('minify-only', function(){
+gulp.task('minify-only', function () {
     return gulp.src(PATHS['dist'] + '/js/app.bundle.js')
-    .pipe(uglify())
-    .pipe(rename({
-      extname: '.min.js'
-    }))
-    .pipe(gulp.dest(PATHS['dist']+'/js/'))
-    .pipe(livereload());
+        .pipe(uglify())
+        .pipe(rename({
+            extname: '.min.js'
+        }))
+        .pipe(gulp.dest(PATHS['dist'] + '/js/'))
+        .pipe(livereload());
 })
 
 gulp.task('dev', ['frontend-static-all', 'minify'], function (next) {
@@ -94,16 +96,16 @@ gulp.task('dev', ['frontend-static-all', 'minify'], function (next) {
     livereload.listen();
 
     nodemon({
-		// the script to run the app
-		script: 'server.js',
-		ext: 'js'
-	}).on('restart', function(){
-		// when the app has restarted, run livereload.
-		gulp.src('server.js')
-			.pipe(livereload())
-			.pipe(notify('Reloading page, please wait...'));
-	});
-    
+        // the script to run the app
+        script: 'server.js',
+        ext: 'js'
+    }).on('restart', function () {
+        // when the app has restarted, run livereload.
+        gulp.src('server.js')
+            .pipe(livereload())
+            .pipe(notify('Reloading page, please wait...'));
+    });
+
     gutil.log(CC.yellow.bold("*** WATCHING FILES ***"));
     // Watch for static frontend changes
     gulp.watch(PATHS['static'] + '**/*', ['frontend-static-all']);

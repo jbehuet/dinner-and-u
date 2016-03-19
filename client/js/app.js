@@ -25,7 +25,7 @@ router.map({
    '/parties': {
       component: parties
    },
-   '/recipes': {
+   '/recipes/:party': {
       component: recipes
    }
 });

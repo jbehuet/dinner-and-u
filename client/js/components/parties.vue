@@ -12,14 +12,14 @@
                 <img src="img/right.png">
             </div>
         </div>
-        <div v-if="!addOrEdit">
+        <div v-if="!adding && !editing">
             <div class="row">
                 <div class="col s12">
                    <table class="highlight">
                        <tr v-for="party in parties">
-                           <td>{{ party.title + ' (' + party.date + ')' }}</td>
+                           <td>{{party.title}} <span class="badge new">{{ party.date | moment }}</span></td>
                            <td class="align-right">
-                               <a class="waves-effect brown-orange btn-flat white-text" v-on:click="displayRecipes(party._id)"><i class="material-icons">visibility</i></a> <a class="waves-effect brown-orange btn-flat white-text" v-on:click="edit(party)"><i class="material-icons">mode_edit</i></a> <a class="waves-effect brown-orange btn-flat white-text" v-on:click="delete(party)"><i class="material-icons">delete</i></a>
+                               <a class="waves-effect brown-orange btn-flat white-text" v-on:click="displayRecipes(party._id)"><i class="material-icons">visibility</i></a> <a class="waves-effect brown-orange btn-flat white-text" v-on:click="edit(party)"><i class="material-icons">mode_edit</i></a> <a class="waves-effect brown-orange btn-flat white-text" v-on:click="remove(party)"><i class="material-icons">delete</i></a>
                             </td>
                        </tr>
                    </table>
@@ -31,22 +31,21 @@
                 </div>
             </div>
         </div>
-        <div v-if="addOrEdit">
-            <form name="formConnect">
+        <div v-if="adding || editing">
+            <form name="formParty">
                 <div class="input-field">
-                    <input id="icon_prefix" type="text" class="validate">
+                    <input id="icon_prefix" type="text" class="validate" v-model="party.title">
                     <label for="icon_prefix">Nom</label>
                 </div>
-                <div class="input-field">
-                    <input id="icon_prefix" type="text" class="validate">
-                    <label for="icon_prefix">Date</label>
+                <div>
+                    <input id="date" type="date" class="datepicker" v-model="party.date">
                 </div>
                 <div class="row">
                    <div class="col s3">
-                       <button type="submit" class="btn btn-success btn-block brown-orange">Valider</button>
+                        <button type="submit" class="btn btn-success btn-block brown-orange" v-on:click="cancel()">Annuler</button>
                    </div>
                    <div class="col s3 offset-s6">
-                       <button type="submit" class="btn btn-success btn-block brown-orange">Annuler</button>
+                       <button type="submit" class="btn btn-success btn-block brown-orange" v-on:click="save()">Valider</button>
                    </div>
                 </div>
             </form>
@@ -61,28 +60,76 @@ import {router} from '../app'
 export default {
     data() {
         return {
-            addOrEdit: false,
-            parties: [
-                { _id: 1, title: 'Pasta', date:'12/03/2016'},
-                { _id: 2, title: 'Pasta', date:'12/03/2016'},
-                { _id: 3, title: 'Pasta', date:'12/03/2016'},
-                { _id: 4, title: 'Pasta', date:'12/03/2016'}
-            ]
+            party:{},
+            adding: false,
+            editing: false,
+            parties: []
         }
     },
+    ready(){
+        this.load();
+    },
     methods: {
+        load(){
+            this.$http.get('/parties').then(function(response){
+                this.parties = response.data;
+            }, function(response){
+                //Error
+            });  
+        },
         displayRecipes(id){
-            router.go('recipes');
+            router.go('recipes/'+ id);
         },
         add(){
-            this.addOrEdit = true;
+            this.adding = true;
         },
         edit(party){
-            console.log(party);
+            this.editing = true;
+            this.party = party;
+            this.party.date = moment(this.party.date).format('YYYY-MM-DD'); // Format date
         },
-        delete(party){
-            console.log(party); 
+        remove(party){
+            this.$http.delete('/parties/' + party._id).then(function(response){
+                Materialize.toast("Suppression : " + party.title, 2000);
+                this.parties.splice(this.parties.indexOf(party), 1);
+            }, function(response){
+                //Error
+            });
         },
+        save(){
+            if (this.adding){
+                //Creating
+                this.$http.post('/parties', this.party).then(function(response){
+                    Materialize.toast("Création : " + this.party.title, 2000,'',function(){
+                        this.load();
+                        this.cancel();
+                    }.bind(this));
+                }, function(response){
+                    //Error
+                });
+            } else {
+                //Updating
+                this.$http.put('/parties/' + this.party._id, this.party).then(function(response){
+                    Materialize.toast("Mise à jour : " + this.party.title, 2000,'',function(){
+                        this.load();
+                        this.cancel();
+                    }.bind(this));
+                }, function(response){
+                    //Error
+                });
+            }
+        },
+        cancel(){
+            this.adding = false;
+            this.editing = false;
+            this.party = {};
+        },
+    },
+    filters: {
+        moment: function (date) {
+            moment.locale('fr');
+            return moment(date).format('LL');
+        }
     }
 }
 </script>
