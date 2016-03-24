@@ -3,6 +3,7 @@ import App from './components/app.vue'
 import home from './components/home.vue';
 import parties from './components/parties.vue';
 import recipes from './components/recipes.vue';
+import guests from './components/guests.vue';
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
@@ -27,6 +28,9 @@ router.map({
    },
    '/recipes/:party': {
       component: recipes
+   },
+   '/guests/:party': {
+      component: guests
    }
 });
 

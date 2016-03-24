@@ -19,7 +19,8 @@
                        <tr v-for="party in parties">
                            <td>{{party.title}} <span class="badge new">{{ party.date | moment }}</span></td>
                            <td class="align-right">
-                               <a class="waves-effect brown-orange btn-flat white-text" v-on:click="displayRecipes(party._id)"><i class="material-icons">visibility</i></a> <a class="waves-effect brown-orange btn-flat white-text" v-on:click="edit(party)"><i class="material-icons">mode_edit</i></a> <a class="waves-effect brown-orange btn-flat white-text" v-on:click="remove(party)"><i class="material-icons">delete</i></a>
+                                <a class="waves-effect brown-orange btn-flat white-text" v-on:click="displayGuest(party._id)"><i class="fa fa-users"></i></a>
+                               <a class="waves-effect brown-orange btn-flat white-text" v-on:click="displayRecipes(party._id)"><i class="fa fa-cutlery"></i></a> <a class="waves-effect brown-orange btn-flat white-text" v-on:click="edit(party)"><i class="material-icons">mode_edit</i></a> <a class="waves-effect brown-orange btn-flat white-text" v-on:click="remove(party)"><i class="material-icons">delete</i></a>
                             </td>
                        </tr>
                    </table>
@@ -79,6 +80,9 @@ export default {
         },
         displayRecipes(id){
             router.go('recipes/'+ id);
+        },
+        displayGuest(id){
+            router.go('guests/'+ id);
         },
         add(){
             this.adding = true;

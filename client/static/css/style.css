@@ -1,68 +1,76 @@
 /* GENERAL */
 
-body{
+body {
     background: url('/img/bg.png') no-repeat center center fixed;
     background-size: cover;
-    color:#533828;
+    color: #533828;
 }
 
-.align-right{
+.not-active{
+    pointer-events: none;
+    cursor: default;
+    color: #C2C2C2 !important;
+}
+
+.align-right {
     text-align: right;
 }
 
-.brand-logo{
+.brand-logo {
     margin-left: 5px;
 }
 
-
-.recipe{
+.recipe {
     width: 100%;
     max-height: 280px;
 }
 
-.recipe-add{
+.recipe-add {
     position: absolute;
     top: 10px;
     right: 10px;
 }
 
-.recipe-edit{
+.recipe-edit {
     position: absolute;
     top: 10px;
     left: 70px;
 }
 
-.recipe-delete{
+.recipe-delete {
     position: absolute;
     top: 10px;
     left: 10px;
 }
 
-.notes{
+.notes {
     text-align: center;
-    color:#D7A554;
+    color: #D7A554;
 }
 
-.empty-card{
+.empty-card {
     text-align: center;
     padding-top: 40px;
 }
 
+
 /* FORM */
-@media only screen and (min-width: 993px){
+
+@media only screen and (min-width: 993px) {
     nav .nav-wrapper {
         width: 70%;
     }
-    .container{
+    .container {
         width: 50%;
     }
 }
-.title{
+
+.title {
     font-size: 30px;
     text-align: center;
 }
 
-.arrow{
+.arrow {
     line-height: 45px;
 }
 
@@ -70,81 +78,110 @@ body{
     margin-top: 5%;
 }
 
-
-.bottom-form{
+.bottom-form {
     padding-top: 20px;
     margin-bottom: 0px;
 }
 
+
 /* COLOR  */
 
-a{
-    color:#D7A554;
+a {
+    color: #D7A554;
 }
 
-.text-grey{
-    color:#807E6F;
+.text-grey {
+    color: #807E6F;
 }
 
-.text-brown, nav .brand-logo{
-    color:#533828;
+.text-brown,
+nav .brand-logo {
+    color: #533828;
 }
 
-.text-brown-light{
-    color:#A95834;
+.text-brown-light {
+    color: #A95834;
 }
 
-.text-brown-orange{
-    color:#D7A554;
+.text-brown-orange {
+    color: #D7A554;
 }
 
-.text-cream{
-    color:#F0D6A6;
+.text-cream {
+    color: #F0D6A6;
 }
 
-.brown-orange{
-    background-color:#D7A554;
+.brown-orange {
+    background-color: #D7A554;
 }
 
 
 /* INPUTS */
-.btn:hover, .btn-floating:hover{
-    background-color:#F8BE60;
+
+.btn:hover,
+.btn-floating:hover {
+    background-color: #F8BE60;
 }
 
-button:focus{
-    background-color:#D7A554;
+button:focus {
+    background-color: #D7A554;
 }
 
-.input-field .prefix.active{
-    color:#D7A554;
+.input-field .prefix.active {
+    color: #D7A554;
 }
 
 input[type=text]:focus:not([readonly]),
 input[type=date]:focus:not([readonly]),
-textarea.materialize-textarea:focus:not([readonly]){
+textarea.materialize-textarea:focus:not([readonly]) {
     border-bottom: 1px solid #D7A554;
     box-shadow: 0 1px 0 0 #D7A554;
 }
 
 input[type=text]:focus:not([readonly])+label,
 input[type=date]:focus:not([readonly])+label,
-textarea.materialize-textarea:focus:not([readonly])+label{
-    color:#D7A554;
+textarea.materialize-textarea:focus:not([readonly])+label {
+    color: #D7A554;
 }
 
-input[type=range]+.thumb{
+input[type=range]+.thumb {
     background-color: #D7A554;
 }
 
 input[type=range]::-webkit-slider-thumb,
-input[type=range]::-ms-thumb{
+input[type=range]::-ms-thumb {
     background: #D7A554 !important;
 }
 
+
 /* BADGE */
 
-span.badge.new{
+span.badge.new {
     position: static;
     background-color: #D7A554;
+}
+
+.card .card-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.card .card-content {
+    padding: 10px;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.card .card-action {
+    padding: 10px;
+}
+
+.card .card-action .right {
+    float: right;
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+    margin-right: 0px;
 }
