@@ -13,6 +13,7 @@ var nodemon = require('gulp-nodemon');
 var CC = gutil.colors;
 
 var PATHS = gulp.adminfacilPaths = {
+    dist: 'app/',
     dist: 'public/',
     static: 'client/static/'
 };
@@ -83,7 +84,7 @@ gulp.task('minify', ['frontend-js-app'], function () {
 
 gulp.task('minify-only', function () {
     return gulp.src(PATHS['dist'] + '/js/app.bundle.js')
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(rename({
             extname: '.min.js'
         }))
@@ -101,7 +102,7 @@ gulp.task('dev', ['frontend-static-all', 'minify'], function (next) {
         ext: 'js'
     }).on('restart', function () {
         // when the app has restarted, run livereload.
-        gulp.src('server.js')
+        gulp.src(PATHS['app'])
             .pipe(livereload())
             .pipe(notify('Reloading page, please wait...'));
     });

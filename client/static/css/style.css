@@ -65,6 +65,10 @@ body {
     }
 }
 
+.dropdown-content li>a, .dropdown-content li>span{
+    color:#A95834;
+}
+
 .title {
     font-size: 30px;
     text-align: center;
@@ -88,6 +92,10 @@ body {
 
 a {
     color: #D7A554;
+}
+
+.text-center{
+    text-align: center;
 }
 
 .text-grey {
@@ -161,6 +169,8 @@ span.badge.new {
     background-color: #D7A554;
 }
 
+/* CARD */
+
 .card .card-title {
     font-size: 16px;
     font-weight: bold;
@@ -168,10 +178,6 @@ span.badge.new {
 
 .card .card-content {
     padding: 10px;
-}
-
-.text-center{
-    text-align: center;
 }
 
 .card .card-action {

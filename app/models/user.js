@@ -7,7 +7,7 @@ var userSchema = new mongoose.Schema({
     lastname: String,
     password: String,
     avatar: String,
-    isAdmin: Boolean
+    isAdmin: {type: Boolean, Default : false}
 });
 
 var User = {
@@ -15,12 +15,7 @@ var User = {
     model: mongoose.model('User', userSchema),
     
     create: function(req, res) {
-		User.model.create({
-			email: req.body.email,
-            password: req.body.password,
-            avatar: req.body.avatar,
-            isAdmin: req.body.isAdmin
-		}, function(){
+		User.model.create(req.body, function(){
 			res.sendStatus(200);
 		})
 	},
@@ -30,14 +25,9 @@ var User = {
 			res.send(data);
 		});
 	},
-
+    
 	update: function(req, res){
-		User.model.findByIdAndUpdate(req.params.id, {
-			email: req.body.email,
-            password: req.body.password,
-            avatar: req.body.avatar,
-            isAdmin: req.body.isAdmin
-		}, function(){
+		User.model.findByIdAndUpdate(req.params.id, req.body, function(){
 			res.sendStatus(200);
 		})
 	},
@@ -46,7 +36,7 @@ var User = {
 		User.model.findByIdAndRemove(req.params.id, function(){
 			res.sendStatus(200);
 		})
-	} 
+	}
 }
 
 module.exports = User;

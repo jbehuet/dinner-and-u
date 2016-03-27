@@ -31,6 +31,14 @@ var Party = {
             });
     },
 
+    findGuests: function (req, res) {
+        Party.model.findOne({_id: req.params.id})
+            .populate("guests", "-password")
+            .exec(function (err, data) {
+                res.json(data);
+            });
+    },
+    
     update: function (req, res) {
         Party.model.findByIdAndUpdate(req.params.id, {
             $set: {
