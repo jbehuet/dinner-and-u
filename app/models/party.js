@@ -31,7 +31,7 @@ var Party = {
             });
     },
 
-    findGuests: function (req, res) {
+    findOne: function (req, res) {
         Party.model.findOne({_id: req.params.id})
             .populate("guests", "-password")
             .exec(function (err, data) {
