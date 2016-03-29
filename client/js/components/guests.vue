@@ -46,9 +46,9 @@
             </div>
             <form name="formGuest">
                 <div class="input-field">
-                    <select class="text-brown-light" v-on:change="selectUser()" v-model="guest">
+                    <select class="text-brown-light" id="guestsList" v-model="selectedGuest">
                       <option value="" selected>Choose an user</option>
-                      <option v-bind:value="{{user._id}}" v-for="user in users">{{user.firstname }} {{user.lastname | firstLetter }}.</option>
+                      <option v-bind:value="user._id" v-for="user in users">{{user.firstname }} {{user.lastname | firstLetter }}.</option>
                     </select>
                 </div>
                 <div class="input-field">
@@ -90,6 +90,7 @@ export default{
         return {
             users:[],
             guest:{},
+            selectedGuest: {},
             adding: false,
             editing: false,
             guests: []
@@ -117,8 +118,12 @@ export default{
             this.adding = true;
             //Hack with timeout
             setTimeout(function(){
-              $('select').material_select();  
-            }, 100);
+                $('select').material_select();  
+                //Use jQuery event on change selected value from select
+                $('#guestsList').change(function(){ 
+                    this.$set('selectedGuest', $('#guestsList').val()); 
+                }.bind(this));
+            }.bind(this), 100);
         },
         cancel(){
             this.adding = false;
@@ -159,9 +164,10 @@ export default{
             if (file)
                 reader.readAsDataURL(file);
         },
-        selectUser(){
+    },
+    watch: {
+        'selectedGuest': function(val, old){
             debugger
-            console.log(this.guest);
         }
     },
     filters: {
